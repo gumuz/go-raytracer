@@ -130,16 +130,30 @@ func (m Matrix4) Mult(b Matrix4) Matrix4 {
 	return matrix
 }
 
-func (m Matrix4) MultT(t Tuple4) Tuple4 {
-	var tuple Tuple4
+func (m Matrix4) MultP(p *Point) *Point {
+	tupleIn := [4]float64{p.X, p.Y, p.Z, 1}
+	tupleOut := [4]float64{}
 
 	for y := 0; y < 4; y++ {
 		for x := 0; x < 4; x++ {
-			tuple[y] += m[y][x] * t[x]
+			tupleOut[y] += m[y][x] * tupleIn[x]
 		}
 	}
 
-	return tuple
+	return NewPoint(tupleOut[0], tupleOut[1], tupleOut[2])
+}
+
+func (m Matrix4) MultV(v *Vector) *Vector {
+	tupleIn := [4]float64{v.X, v.Y, v.Z, 0}
+	tupleOut := [4]float64{}
+
+	for y := 0; y < 4; y++ {
+		for x := 0; x < 4; x++ {
+			tupleOut[y] += m[y][x] * tupleIn[x]
+		}
+	}
+
+	return NewVector(tupleOut[0], tupleOut[1], tupleOut[2])
 }
 
 func (m Matrix4) Trans() Matrix4 {
@@ -183,4 +197,21 @@ func (m Matrix4) Cofact(row, col int) float64 {
 
 func (m Matrix4) Determ() float64 {
 	return m[0][0]*m.Cofact(0, 0) + m[0][1]*m.Cofact(0, 1) + m[0][2]*m.Cofact(0, 2) + m[0][3]*m.Cofact(0, 3)
+}
+
+func (m Matrix4) Inverse() Matrix4 {
+	var matrix Matrix4
+
+	det := m.Determ()
+	if det == 0 {
+		panic("Matrix is not invertible")
+	}
+
+	for y := 0; y < 4; y++ {
+		for x := 0; x < 4; x++ {
+			matrix[x][y] = m.Cofact(y, x) / m.Determ()
+		}
+	}
+
+	return matrix
 }
