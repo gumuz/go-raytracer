@@ -1,34 +1,28 @@
 package main
 
 import (
-	"github.com/gumuz/go-raytracer/raytracer"
+	"math"
+
+	rt "github.com/gumuz/go-raytracer/raytracer"
 )
 
-type projectile struct {
-	position *raytracer.Point
-	velocity *raytracer.Vector
-}
-
-type environment struct {
-	gravity *raytracer.Vector
-	wind    *raytracer.Vector
-}
-
-func tick(p *projectile, e *environment) *projectile {
-	position := p.position.AddV(p.velocity)
-	velocity := p.velocity.Add(e.gravity).Add(e.wind)
-	return &projectile{position, velocity}
-}
-
 func main() {
-	canvas := raytracer.NewCanvas(900, 550)
-	white := raytracer.NewColor(1, 1, 1)
-	p := &projectile{raytracer.NewPoint(0, 1, 0), raytracer.NewVector(1, 1.8, 0).Norm().Mult(11.25)}
-	e := &environment{raytracer.NewVector(0, -0.1, 0), raytracer.NewVector(-0.01, 0, 0)}
+	canvas := rt.NewCanvas(500, 500)
+	white := rt.NewColor(1, 1, 1)
 
-	for p.position.Y > 0 {
-		p = tick(p, e)
-		canvas.WritePixel(int(p.position.X), int(p.position.Y), white)
+	middle := rt.NewPoint(0, 0, 0)
+	positions := []*rt.Point{middle}
+
+	point := rt.NewPoint(0, 1, 0)
+	for i := 0; i < 12; i++ {
+		point = rt.RotationZ(math.Pi / 6).MultP(point)
+		positions = append(positions, point)
+	}
+
+	for _, point := range positions {
+		point = rt.Scaling(20, 20, 20).MultP(point)
+		point = rt.Translation(250, 250, 0).MultP(point)
+		canvas.WritePixel(int(point.X), int(point.Y), white)
 	}
 
 	canvas.Save()
