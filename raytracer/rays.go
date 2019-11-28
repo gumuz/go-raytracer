@@ -1,14 +1,21 @@
 package raytracer
 
 type Ray struct {
-	Origin    *Point
-	Direction *Vector
+	Origin    *Tuple
+	Direction *Tuple
 }
 
-func NewRay(origin *Point, direction *Vector) *Ray {
+func NewRay(origin *Tuple, direction *Tuple) *Ray {
 	return &Ray{origin, direction}
 }
 
-func (r *Ray) Pos(distance float64) *Point {
-	return r.Origin.AddV(r.Direction.Mult(distance))
+func (r *Ray) Pos(distance float64) *Tuple {
+	return r.Origin.Add(r.Direction.Mul(distance))
+}
+
+func (r *Ray) Transform(transformation Matrix) *Ray {
+	return NewRay(
+		transformation.MulT(r.Origin),
+		transformation.MulT(r.Direction),
+	)
 }
