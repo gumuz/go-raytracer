@@ -16,7 +16,7 @@ func TestPointTuple(t *testing.T) {
 	     And a.w = 1.0
 	     And a is a point
 		 And a is not a vector */
-	a := rt.Tuple{4.3, -4.2, 3.1, 1.0}
+	a := &rt.Tuple{4.3, -4.2, 3.1, 1.0}
 
 	if a.X != 4.3 || a.Y != -4.2 || a.Z != 3.1 || a.W != 1.0 {
 		t.Errorf("Error: %v", a)
@@ -54,7 +54,7 @@ func TestCreatePointTuple(t *testing.T) {
 	p := rt.Point(4, -4, 3)
 
 	expected := &rt.Tuple{4, -4, 3, 1}
-	if p.Equals(expected) {
+	if !p.Equals(expected) {
 		t.Errorf("Error: %v", p)
 	}
 }
@@ -66,7 +66,7 @@ func TestCreateVectorTuple(t *testing.T) {
 	v := rt.Vector(4, -4, 3)
 
 	expected := &rt.Tuple{4, -4, 3, 0}
-	if v.Equals(expected) {
+	if !v.Equals(expected) {
 		t.Errorf("Error: %v", v)
 	}
 }
@@ -82,7 +82,7 @@ func TestAdd2Tuples(t *testing.T) {
 	result := a1.Add(a2)
 
 	expected := &rt.Tuple{1, 1, 6, 1}
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -98,7 +98,7 @@ func TestSub2Points(t *testing.T) {
 	result := p1.Sub(p2)
 
 	expected := rt.Vector(-2, -4, -6)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -114,7 +114,7 @@ func TestSubVectorFromPoint(t *testing.T) {
 	result := p.Sub(v)
 
 	expected := rt.Point(-2, -4, -6)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -130,7 +130,7 @@ func TestSub2Vectors(t *testing.T) {
 	result := v1.Sub(v2)
 
 	expected := rt.Vector(-2, -4, -6)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -146,7 +146,7 @@ func TestSubVectorFromZeroVector(t *testing.T) {
 	result := zero.Sub(v)
 
 	expected := rt.Vector(-1, 2, -3)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -160,7 +160,7 @@ func TestNegateTuple(t *testing.T) {
 	result := a.Neg()
 
 	expected := &rt.Tuple{-1, 2, -3, 4}
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -174,7 +174,7 @@ func TestMulTupleByScalar(t *testing.T) {
 	result := a.Mul(3.5)
 
 	expected := &rt.Tuple{3.5, -7, 10.5, -14}
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -188,7 +188,7 @@ func TestMulTupleByFraction(t *testing.T) {
 	result := a.Mul(0.5)
 
 	expected := &rt.Tuple{0.5, -1, 1.5, -2}
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -202,7 +202,7 @@ func TestDivTupleByScalar(t *testing.T) {
 	result := a.Div(2)
 
 	expected := &rt.Tuple{0.5, -1, 1.5, -2}
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -271,7 +271,7 @@ func TestNormVectorX(t *testing.T) {
 	result := v.Norm()
 
 	expected := rt.Vector(1, 0, 0)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -285,8 +285,8 @@ func TestNormVector(t *testing.T) {
 
 	result := v.Norm()
 
-	expected := rt.Vector(1/math.Sqrt(14), 2/math.Sqrt(14), 2/math.Sqrt(14))
-	if result.Equals(expected) {
+	expected := rt.Vector(0.26726, 0.53452, 0.80178)
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }
@@ -333,14 +333,14 @@ func TestCrossVector(t *testing.T) {
 	result := a.Cross(b)
 
 	expected := rt.Vector(-1, 2, -1)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 
 	result = b.Cross(a)
 
 	expected = rt.Vector(1, -2, 1)
-	if result.Equals(expected) {
+	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 }

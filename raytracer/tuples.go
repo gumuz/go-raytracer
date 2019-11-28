@@ -23,19 +23,19 @@ func (t *Tuple) IsVector() bool {
 }
 
 func (t *Tuple) Equals(b *Tuple) bool {
-	if math.Abs(t.X-b.X) < epsilon {
+	if math.Abs(t.X-b.X) > epsilon {
 		return false
 	}
 
-	if math.Abs(t.Y-b.Y) < epsilon {
+	if math.Abs(t.Y-b.Y) > epsilon {
 		return false
 	}
 
-	if math.Abs(t.Z-b.Z) < epsilon {
+	if math.Abs(t.Z-b.Z) > epsilon {
 		return false
 	}
 
-	if math.Abs(t.W-b.W) < epsilon {
+	if math.Abs(t.W-b.W) > epsilon {
 		return false
 	}
 
