@@ -37,7 +37,7 @@ func TestNewIntersections(t *testing.T) {
 	i1 := rt.NewIntersection(1, s)
 	i2 := rt.NewIntersection(2, s)
 
-	xs := rt.Intersections{i1, i2}
+	xs := rt.NewIntersections(i1, i2)
 
 	if len(xs) != 2 {
 		t.Errorf("Error: %v", len(xs))
@@ -63,7 +63,7 @@ func TestIntersectionsAllPositive(t *testing.T) {
 	s := rt.NewSphere()
 	i1 := rt.NewIntersection(1, s)
 	i2 := rt.NewIntersection(2, s)
-	xs := rt.Intersections{i1, i2}
+	xs := rt.NewIntersections(i1, i2)
 
 	i := xs.Hit()
 
@@ -82,7 +82,7 @@ func TestIntersectionsSomePositive(t *testing.T) {
 	s := rt.NewSphere()
 	i1 := rt.NewIntersection(-1, s)
 	i2 := rt.NewIntersection(1, s)
-	xs := rt.Intersections{i1, i2}
+	xs := rt.NewIntersections(i1, i2)
 
 	i := xs.Hit()
 
@@ -101,7 +101,7 @@ func TestIntersectionsAllNegative(t *testing.T) {
 	s := rt.NewSphere()
 	i1 := rt.NewIntersection(-2, s)
 	i2 := rt.NewIntersection(-1, s)
-	xs := rt.Intersections{i1, i2}
+	xs := rt.NewIntersections(i1, i2)
 
 	i := xs.Hit()
 
@@ -125,7 +125,7 @@ func TestIntersectionsLowestPositive(t *testing.T) {
 	i2 := rt.NewIntersection(7, s)
 	i3 := rt.NewIntersection(-3, s)
 	i4 := rt.NewIntersection(2, s)
-	xs := rt.Intersections{i1, i2, i3, i4}
+	xs := rt.NewIntersections(i1, i2, i3, i4)
 
 	i := xs.Hit()
 

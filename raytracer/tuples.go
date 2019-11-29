@@ -6,11 +6,11 @@ type Tuple struct {
 	X, Y, Z, W float64
 }
 
-func Point(x, y, z float64) *Tuple {
+func NewPoint(x, y, z float64) *Tuple {
 	return &Tuple{x, y, z, 1}
 }
 
-func Vector(x, y, z float64) *Tuple {
+func NewVector(x, y, z float64) *Tuple {
 	return &Tuple{x, y, z, 0}
 }
 
@@ -75,7 +75,7 @@ func (t *Tuple) Dot(b *Tuple) float64 {
 }
 
 func (t *Tuple) Cross(b *Tuple) *Tuple {
-	return Vector(
+	return NewVector(
 		t.Y*b.Z-t.Z*b.Y,
 		t.Z*b.X-t.X*b.Z,
 		t.X*b.Y-t.Y*b.X)

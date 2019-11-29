@@ -51,7 +51,7 @@ func TestCreatePointTuple(t *testing.T) {
 	/* Scenario: point() creates tuples with w=1
 	   Given p ← point(4, -4, 3)
 	   Then p = tuple(4, -4, 3, 1) */
-	p := rt.Point(4, -4, 3)
+	p := rt.NewPoint(4, -4, 3)
 
 	expected := &rt.Tuple{4, -4, 3, 1}
 	if !p.Equals(expected) {
@@ -63,7 +63,7 @@ func TestCreateVectorTuple(t *testing.T) {
 	/* Scenario: vector() creates tuples with w=0
 	   Given v ← vector(4, -4, 3)
 	   Then v = tuple(4, -4, 3, 0) */
-	v := rt.Vector(4, -4, 3)
+	v := rt.NewVector(4, -4, 3)
 
 	expected := &rt.Tuple{4, -4, 3, 0}
 	if !v.Equals(expected) {
@@ -92,12 +92,12 @@ func TestSub2Points(t *testing.T) {
 	   Given p1 ← point(3, 2, 1)
 	     And p2 ← point(5, 6, 7)
 	   Then p1 - p2 = vector(-2, -4, -6) */
-	p1 := rt.Point(3, 2, 1)
-	p2 := rt.Point(5, 6, 7)
+	p1 := rt.NewPoint(3, 2, 1)
+	p2 := rt.NewPoint(5, 6, 7)
 
 	result := p1.Sub(p2)
 
-	expected := rt.Vector(-2, -4, -6)
+	expected := rt.NewVector(-2, -4, -6)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
@@ -108,12 +108,12 @@ func TestSubVectorFromPoint(t *testing.T) {
 	   Given p ← point(3, 2, 1)
 	     And v ← vector(5, 6, 7)
 	   Then p - v = point(-2, -4, -6) */
-	p := rt.Point(3, 2, 1)
-	v := rt.Vector(5, 6, 7)
+	p := rt.NewPoint(3, 2, 1)
+	v := rt.NewVector(5, 6, 7)
 
 	result := p.Sub(v)
 
-	expected := rt.Point(-2, -4, -6)
+	expected := rt.NewPoint(-2, -4, -6)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
@@ -124,12 +124,12 @@ func TestSub2Vectors(t *testing.T) {
 	   Given v1 ← vector(3, 2, 1)
 	     And v2 ← vector(5, 6, 7)
 	   Then v1 - v2 = vector(-2, -4, -6) */
-	v1 := rt.Vector(3, 2, 1)
-	v2 := rt.Vector(5, 6, 7)
+	v1 := rt.NewVector(3, 2, 1)
+	v2 := rt.NewVector(5, 6, 7)
 
 	result := v1.Sub(v2)
 
-	expected := rt.Vector(-2, -4, -6)
+	expected := rt.NewVector(-2, -4, -6)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
@@ -140,12 +140,12 @@ func TestSubVectorFromZeroVector(t *testing.T) {
 	   Given zero ← vector(0, 0, 0)
 	     And v ← vector(1, -2, 3)
 	   Then zero - v = vector(-1, 2, -3) */
-	zero := rt.Vector(0, 0, 0)
-	v := rt.Vector(1, -2, 3)
+	zero := rt.NewVector(0, 0, 0)
+	v := rt.NewVector(1, -2, 3)
 
 	result := zero.Sub(v)
 
-	expected := rt.Vector(-1, 2, -3)
+	expected := rt.NewVector(-1, 2, -3)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
@@ -211,7 +211,7 @@ func TestMagVectorX(t *testing.T) {
 	/* Scenario: Computing the magnitude of vector(1, 0, 0)
 	   Given v ← vector(1, 0, 0)
 	   Then magnitude(v) = 1 */
-	v := rt.Vector(1, 0, 0)
+	v := rt.NewVector(1, 0, 0)
 
 	if v.Mag() != 1 {
 		t.Errorf("Error: %v", v.Mag())
@@ -222,7 +222,7 @@ func TestMagVectorY(t *testing.T) {
 	/* Scenario: Computing the magnitude of vector(0, 1, 0)
 	   Given v ← vector(0, 1, 0)
 	   Then magnitude(v) = 1 */
-	v := rt.Vector(0, 1, 0)
+	v := rt.NewVector(0, 1, 0)
 
 	if v.Mag() != 1 {
 		t.Errorf("Error: %v", v.Mag())
@@ -233,7 +233,7 @@ func TestMagVectorZ(t *testing.T) {
 	/* Scenario: Computing the magnitude of vector(0, 0, 1)
 	   Given v ← vector(0, 0, 1)
 	   Then magnitude(v) = 1 */
-	v := rt.Vector(0, 0, 1)
+	v := rt.NewVector(0, 0, 1)
 
 	if v.Mag() != 1 {
 		t.Errorf("Error: %v", v.Mag())
@@ -244,7 +244,7 @@ func TestMagVector(t *testing.T) {
 	/* Scenario: Computing the magnitude of vector(1, 2, 3)
 	   Given v ← vector(1, 2, 3)
 	   Then magnitude(v) = √14 */
-	v := rt.Vector(1, 2, 3)
+	v := rt.NewVector(1, 2, 3)
 
 	if v.Mag() != math.Sqrt(14) {
 		t.Errorf("Error: %v", v.Mag())
@@ -255,7 +255,7 @@ func TestMagVectorNegative(t *testing.T) {
 	/* Scenario: Computing the magnitude of vector(-1, -2, -3)
 	   Given v ← vector(-1, -2, -3)
 	   Then magnitude(v) = √14 */
-	v := rt.Vector(-1, -2, -3)
+	v := rt.NewVector(-1, -2, -3)
 
 	if v.Mag() != math.Sqrt(14) {
 		t.Errorf("Error: %v", v.Mag())
@@ -266,11 +266,11 @@ func TestNormVectorX(t *testing.T) {
 	/* Scenario: Normalizing vector(4, 0, 0) gives (1, 0, 0)
 	   Given v ← vector(4, 0, 0)
 	   Then normalize(v) = vector(1, 0, 0) */
-	v := rt.Vector(4, 0, 0)
+	v := rt.NewVector(4, 0, 0)
 
 	result := v.Norm()
 
-	expected := rt.Vector(1, 0, 0)
+	expected := rt.NewVector(1, 0, 0)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
@@ -281,11 +281,11 @@ func TestNormVector(t *testing.T) {
 	   Given v ← vector(1, 2, 3)
 	                                   # vector(1/√14,   2/√14,   3/√14)
 	   Then normalize(v) = approximately vector(0.26726, 0.53452, 0.80178) */
-	v := rt.Vector(1, 2, 3)
+	v := rt.NewVector(1, 2, 3)
 
 	result := v.Norm()
 
-	expected := rt.Vector(0.26726, 0.53452, 0.80178)
+	expected := rt.NewVector(0.26726, 0.53452, 0.80178)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
@@ -295,7 +295,7 @@ func TestMagNormVector(t *testing.T) {
 	   Given v ← vector(1, 2, 3)
 	   When norm ← normalize(v)
 	   Then magnitude(norm) = 1 */
-	v := rt.Vector(1, 2, 3)
+	v := rt.NewVector(1, 2, 3)
 
 	result := v.Norm().Mag()
 
@@ -310,8 +310,8 @@ func TestDotVector(t *testing.T) {
 	     And b ← vector(2, 3, 4)
 	   Then dot(a, b) = 20 */
 
-	a := rt.Vector(1, 2, 3)
-	b := rt.Vector(2, 3, 4)
+	a := rt.NewVector(1, 2, 3)
+	b := rt.NewVector(2, 3, 4)
 
 	result := a.Dot(b)
 
@@ -327,19 +327,19 @@ func TestCrossVector(t *testing.T) {
 	     And b ← vector(2, 3, 4)
 	   Then cross(a, b) = vector(-1, 2, -1)
 		 And cross(b, a) = vector(1, -2, 1) */
-	a := rt.Vector(1, 2, 3)
-	b := rt.Vector(2, 3, 4)
+	a := rt.NewVector(1, 2, 3)
+	b := rt.NewVector(2, 3, 4)
 
 	result := a.Cross(b)
 
-	expected := rt.Vector(-1, 2, -1)
+	expected := rt.NewVector(-1, 2, -1)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}
 
 	result = b.Cross(a)
 
-	expected = rt.Vector(1, -2, 1)
+	expected = rt.NewVector(1, -2, 1)
 	if !result.Equals(expected) {
 		t.Errorf("Error: %v", result)
 	}

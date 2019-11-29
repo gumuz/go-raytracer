@@ -14,7 +14,7 @@ func TestRayIntersect(t *testing.T) {
 	   Then xs.count = 2
 	     And xs[0] = 4.0
 	 	And xs[1] = 6.0 */
-	r := rt.NewRay(rt.Point(0, 0, -5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 0, -5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	xs := s.Intersect(r)
@@ -40,7 +40,7 @@ func TestRayIntersectTangent(t *testing.T) {
 	   Then xs.count = 2
 	     And xs[0] = 5.0
 	 	And xs[1] = 5.0 */
-	r := rt.NewRay(rt.Point(0, 1, -5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 1, -5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	xs := s.Intersect(r)
@@ -64,7 +64,7 @@ func TestRayNoIntersect(t *testing.T) {
 	     And s ← sphere()
 	   When xs ← intersect(s, r)
 	   Then xs.count = 0 */
-	r := rt.NewRay(rt.Point(0, 2, -5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 2, -5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	xs := s.Intersect(r)
@@ -82,7 +82,7 @@ func TestRayIntersectInside(t *testing.T) {
 	   Then xs.count = 2
 	     And xs[0] = -1.0
 	 	And xs[1] = 1.0 */
-	r := rt.NewRay(rt.Point(0, 0, 0), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 0, 0), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	xs := s.Intersect(r)
@@ -108,7 +108,7 @@ func TestRayIntersectBehind(t *testing.T) {
 	   Then xs.count = 2
 	     And xs[0] = -6.0
 	 	And xs[1] = -4.0 */
-	r := rt.NewRay(rt.Point(0, 0, 5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 0, 5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	xs := s.Intersect(r)
@@ -134,7 +134,7 @@ func TestRayIntersectSetsObject(t *testing.T) {
 	   Then xs.count = 2
 	     And xs[0].object = s
 		 And xs[1].object = s */
-	r := rt.NewRay(rt.Point(0, 0, -5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 0, -5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	xs := s.Intersect(r)
@@ -188,7 +188,7 @@ func TestRayIntersectScaledSphere(t *testing.T) {
 	   Then xs.count = 2
 	     And xs[0].t = 3
 		 And xs[1].t = 7 */
-	r := rt.NewRay(rt.Point(0, 0, -5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 0, -5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	s.SetTransform(rt.Scaling(2, 2, 2))
@@ -214,7 +214,7 @@ func TestRayIntersectTranslatedSphere(t *testing.T) {
 	   When set_transform(s, translation(5, 0, 0))
 	     And xs ← intersect(s, r)
 	   Then xs.count = 0 */
-	r := rt.NewRay(rt.Point(0, 0, -5), rt.Vector(0, 0, 1))
+	r := rt.NewRay(rt.NewPoint(0, 0, -5), rt.NewVector(0, 0, 1))
 	s := rt.NewSphere()
 
 	s.SetTransform(rt.Translation(5, 0, 0))

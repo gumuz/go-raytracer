@@ -9,16 +9,16 @@ func main() {
 		position *rt.Tuple
 		velocity *rt.Tuple
 	}{
-		rt.Point(0, 1, 0),
-		rt.Vector(1, 1.8, 0).Norm().Mul(11.25),
+		rt.NewPoint(0, 1, 0),
+		rt.NewVector(1, 1.8, 0).Norm().Mul(11.25),
 	}
 
 	environment := struct {
 		gravity *rt.Tuple
 		wind    *rt.Tuple
 	}{
-		rt.Vector(0, -0.1, 0),
-		rt.Vector(-0.01, 0, 0),
+		rt.NewVector(0, -0.1, 0),
+		rt.NewVector(-0.01, 0, 0),
 	}
 
 	width, height := 900, 550

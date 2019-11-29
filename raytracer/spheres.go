@@ -17,7 +17,7 @@ func (s *Sphere) SetTransform(transform Matrix) {
 func (s *Sphere) Intersect(r *Ray) Intersections {
 	transformedRay := r.Transform(s.Transform.Inv())
 
-	sphereToRay := transformedRay.Origin.Sub(Point(0, 0, 0))
+	sphereToRay := transformedRay.Origin.Sub(NewPoint(0, 0, 0))
 
 	a := transformedRay.Direction.Dot(transformedRay.Direction)
 	b := 2 * transformedRay.Direction.Dot(sphereToRay)
@@ -25,15 +25,15 @@ func (s *Sphere) Intersect(r *Ray) Intersections {
 
 	disc := math.Pow(b, 2) - 4*a*c
 	if disc < 0 {
-		return Intersections{}
+		return NewIntersections()
 	}
 
 	t1 := (-b - math.Sqrt(disc)) / (2 * a)
 	t2 := (-b + math.Sqrt(disc)) / (2 * a)
 
-	intersections := Intersections{
+	intersections := NewIntersections(
 		NewIntersection(t1, s),
 		NewIntersection(t2, s),
-	}
+	)
 	return intersections
 }

@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	rayOrigin := rt.Point(0, 0, -5)
+	rayOrigin := rt.NewPoint(0, 0, -5)
 	wallZ := 10.0
 	wallSize := 7.0
 	canvasPixels := 100
@@ -22,7 +22,7 @@ func main() {
 		worldY := half - pixelSize*float64(y)
 		for x := 0; x < canvasPixels; x++ {
 			worldX := -half + pixelSize*float64(x)
-			position := rt.Point(worldX, worldY, wallZ)
+			position := rt.NewPoint(worldX, worldY, wallZ)
 			ray := rt.NewRay(rayOrigin, position.Sub(rayOrigin).Norm())
 			xs := sphere.Intersect(ray)
 

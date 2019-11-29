@@ -10,6 +10,15 @@ type Intersection struct {
 
 type Intersections []*Intersection
 
+func NewIntersections(is ...*Intersection) Intersections {
+	intersections := make(Intersections, len(is))
+
+	for idx, intersection := range is {
+		intersections[idx] = intersection
+	}
+	return intersections
+}
+
 func NewIntersection(t float64, object Intersected) *Intersection {
 	return &Intersection{t, object}
 }
