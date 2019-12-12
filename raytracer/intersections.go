@@ -1,6 +1,8 @@
 package raytracer
 
 type Intersected interface {
+	NormalAt(p *Tuple) *Tuple
+	GetMaterial() *Material
 }
 
 type Intersection struct {

@@ -344,3 +344,34 @@ func TestCrossVector(t *testing.T) {
 		t.Errorf("Error: %v", result)
 	}
 }
+
+func TestReflectVector45(t *testing.T) {
+	/* Scenario: Reflecting a vector approaching at 45°
+	   Given v ← vector(1, -1, 0)
+	     And n ← vector(0, 1, 0)
+	   When r ← reflect(v, n)
+	   Then r = vector(1, 1, 0) */
+	v := rt.NewVector(1, -1, 0)
+	n := rt.NewVector(0, 1, 0)
+
+	r := v.Reflect(n)
+
+	if !r.Equals(rt.NewVector(1, 1, 0)) {
+		t.Errorf("Error: %v", r)
+	}
+}
+func TestReflectVectorSlanted(t *testing.T) {
+	/* Scenario: Reflecting a vector off a slanted surface
+	   Given v ← vector(0, -1, 0)
+	     And n ← vector(√2/2, √2/2, 0)
+	   When r ← reflect(v, n)
+	   Then r = vector(1, 0, 0) */
+	v := rt.NewVector(0, -1, 0)
+	n := rt.NewVector(math.Sqrt(2)/2, math.Sqrt(2)/2, 0)
+
+	r := v.Reflect(n)
+
+	if !r.Equals(rt.NewVector(1, 0, 0)) {
+		t.Errorf("Error: %v", r)
+	}
+}

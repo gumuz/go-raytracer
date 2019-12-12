@@ -4,10 +4,11 @@ import "math"
 
 type Sphere struct {
 	Transform Matrix
+	Material  *Material
 }
 
 func NewSphere() *Sphere {
-	return &Sphere{Identity()}
+	return &Sphere{Identity(), NewMaterial()}
 }
 
 func (s *Sphere) SetTransform(transform Matrix) {
@@ -36,4 +37,16 @@ func (s *Sphere) Intersect(r *Ray) Intersections {
 		NewIntersection(t2, s),
 	)
 	return intersections
+}
+
+func (s *Sphere) NormalAt(p *Tuple) *Tuple {
+	objPoint := s.Transform.Inv().MulT(p)
+	objNormal := objPoint.Sub(NewPoint(0, 0, 0))
+	worldNormal := s.Transform.Inv().Trans().MulT(objNormal)
+	worldNormal.W = 0
+	return worldNormal.Norm()
+}
+
+func (s *Sphere) GetMaterial() *Material {
+	return s.Material
 }

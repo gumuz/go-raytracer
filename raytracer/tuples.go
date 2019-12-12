@@ -81,3 +81,8 @@ func (t *Tuple) Cross(b *Tuple) *Tuple {
 		t.X*b.Y-t.Y*b.X)
 
 }
+
+func (t *Tuple) Reflect(n *Tuple) *Tuple {
+	return t.Sub(n.Mul(2).Mul(t.Dot(n)))
+
+}
